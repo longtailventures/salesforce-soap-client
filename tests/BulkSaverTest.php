@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class BulkSaverTest extends TestCase
 {
-    public function testCreate()
+    public function testCreate(): void
     {
         $client = $this->createMock(Client::class);
 
@@ -27,7 +27,7 @@ class BulkSaverTest extends TestCase
         $bulkSaver->flush();
     }
 
-    public function testUpdate()
+    public function testUpdate(): void
     {
         $client = $this->createMock(Client::class);
 
@@ -48,9 +48,9 @@ class BulkSaverTest extends TestCase
         $bulkSaver->flush();
     }
 
-    public function testDelete()
+    public function testDelete(): void
     {
-        $tasks = array();
+        $tasks = [];
         for ($i = 0; $i < 202; $i++) {
             $task = new \stdClass();
             $task->Id = $i+1;
@@ -75,7 +75,7 @@ class BulkSaverTest extends TestCase
         $bulkSaver->flush();
     }
 
-    public function testDeleteWithoutIdThrowsException()
+    public function testDeleteWithoutIdThrowsException(): void
     {
         $client = $this->createMock(Client::class);
         $bulkSaver = new BulkSaver($client);
@@ -85,7 +85,7 @@ class BulkSaverTest extends TestCase
         $bulkSaver->delete($invalidRecord);
     }
 
-    public function testUpsert()
+    public function testUpsert(): void
     {
         $client = $this->createMock(Client::class);
         $client->expects($this->exactly(2))

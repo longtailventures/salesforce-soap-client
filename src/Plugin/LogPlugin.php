@@ -14,6 +14,10 @@ use Psr\Log\LoggerInterface;
 class LogPlugin implements EventSubscriberInterface
 {
     /**
+     * @var \Psr\Log\LoggerInterface
+     */
+    public $logger;
+    /**
      * Constructor
      *
      * @param LoggerInterface $logger
@@ -23,7 +27,7 @@ class LogPlugin implements EventSubscriberInterface
         $this->logger = $logger;
     }
 
-    public function onClientRequest(RequestEvent $event)
+    public function onClientRequest(RequestEvent $event): void
     {
         $this->logger->info(sprintf(
             '[php-arsenal/salesforce-soap-client] request: call "%s" with params %s',
@@ -32,7 +36,7 @@ class LogPlugin implements EventSubscriberInterface
         ));
     }
 
-    public function onClientResponse(ResponseEvent $event)
+    public function onClientResponse(ResponseEvent $event): void
     {
         $this->logger->info(sprintf(
             '[php-arsenal/salesforce-soap-client] response: %s',
@@ -40,7 +44,7 @@ class LogPlugin implements EventSubscriberInterface
         ));
     }
 
-    public function onClientFault(FaultEvent $event)
+    public function onClientFault(FaultEvent $event): void
     {
         $this->logger->error(sprintf(
             '[php-arsenal/salesforce-soap-client] fault "%s" for request "%s" with params %s',
@@ -55,10 +59,10 @@ class LogPlugin implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             'arsenal.soap_client.request'  => 'onClientRequest',
             'arsenal.soap_client.response' => 'onClientResponse',
             'arsenal.soap_client.fault'    => 'onClientFault'
-        );
+        ];
     }
 }

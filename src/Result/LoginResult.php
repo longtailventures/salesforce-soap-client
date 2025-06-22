@@ -73,10 +73,8 @@ class LoginResult
 
     /**
      * Get the server instance, e.g. ‘eu1’ or ‘cs7’
-     *
-     * @return string
      */
-    public function getServerInstance()
+    public function getServerInstance(): string
     {
         if (null === $this->serverUrl) {
             throw new \UnexpectedValueException('Server URL must be set');

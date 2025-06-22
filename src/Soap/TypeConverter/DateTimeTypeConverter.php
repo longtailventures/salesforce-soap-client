@@ -9,7 +9,7 @@ class DateTimeTypeConverter implements TypeConverterInterface
     /**
      * {@inheritdoc}
      */
-    public function getTypeNamespace()
+    public function getTypeNamespace(): string
     {
         return 'http://www.w3.org/2001/XMLSchema';
     }
@@ -17,7 +17,7 @@ class DateTimeTypeConverter implements TypeConverterInterface
     /**
      * {@inheritdoc}
      */
-    public function getTypeName()
+    public function getTypeName(): string
     {
         return 'dateTime';
     }
@@ -25,7 +25,7 @@ class DateTimeTypeConverter implements TypeConverterInterface
     /**
      * {@inheritdoc}
      */
-    public function convertXmlToPhp($data)
+    public function convertXmlToPhp($data): ?\DateTime
     {
         $doc = new \DOMDocument();
         $doc->loadXML($data);
@@ -43,7 +43,7 @@ class DateTimeTypeConverter implements TypeConverterInterface
     /**
      * {@inheritdoc}
      */
-    public function convertPhpToXml($php)
+    public function convertPhpToXml($php): string
     {
         return sprintf('<%1$s>%2$s</%1$s>', $this->getTypeName(), $php->format('Y-m-d\TH:i:sP'));
     }

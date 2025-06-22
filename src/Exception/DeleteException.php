@@ -12,7 +12,7 @@ class DeleteException extends \RuntimeException
         return $this->successes;
     }
 
-    public function setSuccesses($successes)
+    public function setSuccesses($successes): void
     {
         $this->successes = $successes;
     }
@@ -22,7 +22,7 @@ class DeleteException extends \RuntimeException
         return $this->errors;
     }
 
-    public function setErrors($errors)
+    public function setErrors($errors): void
     {
         $this->errors = $errors;
     }

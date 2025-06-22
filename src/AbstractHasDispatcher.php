@@ -21,7 +21,7 @@ abstract class AbstractHasDispatcher
      *
      * @param EventDispatcherInterface $eventDispatcher
      */
-    public function setEventDispatcher(EventDispatcherInterface $eventDispatcher)
+    public function setEventDispatcher(EventDispatcherInterface $eventDispatcher): void
     {
         $this->eventDispatcher = $eventDispatcher;
     }
@@ -51,7 +51,7 @@ abstract class AbstractHasDispatcher
      *
      * @return Event
      */
-    protected function dispatch($name, Event $event)
+    protected function dispatch(?string $name, Event $event)
     {
         return $this->getEventDispatcher()->dispatch($event, $name);
     }

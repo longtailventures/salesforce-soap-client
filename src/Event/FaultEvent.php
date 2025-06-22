@@ -20,7 +20,7 @@ class FaultEvent extends Event
         return $this->soapFault;
     }
 
-    public function setSoapFault($soapFault)
+    public function setSoapFault($soapFault): void
     {
         $this->soapFault = $soapFault;
     }
@@ -30,7 +30,7 @@ class FaultEvent extends Event
         return $this->requestEvent;
     }
 
-    public function setRequestEvent(RequestEvent $requestEvent)
+    public function setRequestEvent(RequestEvent $requestEvent): void
     {
         $this->requestEvent = $requestEvent;
     }

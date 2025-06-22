@@ -11,40 +11,40 @@ use \ReflectionClass;
 
 class ClientTest extends TestCase
 {
-    public function testDelete()
+    public function testDelete(): void
     {
-        $deleteResult = $this->createObjectMock(new Result\DeleteResult(), array(
+        $deleteResult = $this->createObjectMock(new Result\DeleteResult(), [
             'id' => '001M0000008tWTFIA2',
             'success' => true
-        ));
+        ]);
 
         $result = new \stdClass;
-        $result->result = array($deleteResult);
+        $result->result = [$deleteResult];
 
-        $soapClient = $this->getSoapClient(array('delete'));
+        $soapClient = $this->getSoapClient(['delete']);
         $soapClient->expects($this->once())
             ->method('delete')
-            ->with(array('ids' => array('001M0000008tWTFIA2')))
+            ->with(['ids' => ['001M0000008tWTFIA2']])
             ->will($this->returnValue($result));
 
-        $this->getClient($soapClient)->delete(array('001M0000008tWTFIA2'));
+        $this->getClient($soapClient)->delete(['001M0000008tWTFIA2']);
 
     }
 
-    public function testQuery()
+    public function testQuery(): void
     {
-        $soapClient = $this->getSoapClient(array('query'));
+        $soapClient = $this->getSoapClient(['query']);
 
-        $result = $this->getResultMock(new Result\QueryResult, array(
+        $result = $this->getResultMock(new Result\QueryResult, [
             'size' => 1,
             'done' => true,
-            'records' => array(
-                (object) array(
+            'records' => [
+                (object) [
                     'Id'    => '001M0000008tWTFIA2',
                     'Name'  => 'Company'
-                )
-            )
-        ));
+                ]
+            ]
+        ]);
 
         $soapClient->expects($this->any())
                 ->method('query')
@@ -52,13 +52,13 @@ class ClientTest extends TestCase
 
         $client = new Client($soapClient, 'username', 'password', 'token');
         $result = $client->query('Select Name from Account Limit 1');
-        $this->assertInstanceOf('PhpArsenal\SoapClient\Result\RecordIterator', $result);
+        $this->assertInstanceOf(\PhpArsenal\SoapClient\Result\RecordIterator::class, $result);
         $this->assertEquals(1, $result->count());
     }
 
-    public function testInvalidQueryThrowsSoapFault()
+    public function testInvalidQueryThrowsSoapFault(): void
     {
-        $soapClient = $this->getSoapClient(array('query'));
+        $soapClient = $this->getSoapClient(['query']);
         $soapClient
             ->expects($this->once())
             ->method('query')
@@ -74,93 +74,93 @@ No such column 'aId' on entity 'Account'. If you are attempting to use a custom 
         $client->query('Select NonExistingField from Account');
     }
 
-    public function testInvalidUpdateResultsInError()
+    public function testInvalidUpdateResultsInError(): void
     {
-        $error = $this->createObjectMock(new Result\Error(), array(
-            'fields' => array('Id'),
+        $error = $this->createObjectMock(new Result\Error(), [
+            'fields' => ['Id'],
             'message' => 'Account ID: id value of incorrect type: 001M0000008tWTFIA3',
             'statusCode' => 'MALFORMED_ID'
-        ));
+        ]);
 
-        $saveResult = $this->createObjectMock(new Result\SaveResult(), array(
-            'errors' => array($error),
+        $saveResult = $this->createObjectMock(new Result\SaveResult(), [
+            'errors' => [$error],
             'success' => false
-        ));
+        ]);
 
         $result = new \stdClass();
-        $result->result = array($saveResult);
+        $result->result = [$saveResult];
 
-        $soapClient = $this->getSoapClient(array('update'));
+        $soapClient = $this->getSoapClient(['update']);
         $soapClient
             ->expects($this->once())
             ->method('update')
             ->will($this->returnValue($result));
 
-        $this->expectException('\PhpArsenal\SoapClient\Exception\SaveException');
-        $this->getClient($soapClient)->update(array(
-            (object) array(
+        $this->expectException(\PhpArsenal\SoapClient\Exception\SaveException::class);
+        $this->getClient($soapClient)->update([
+            (object) [
                 'Id'    => 'invalid-id',
                 'Name'  => 'Some name'
-            )
-        ), 'Account');
+            ]
+        ], 'Account');
     }
 
-    public function testMergeMustThrowException()
+    public function testMergeMustThrowException(): void
     {
-        $soapClient= $this->getSoapClient(array('merge'));
+        $soapClient= $this->getSoapClient(['merge']);
         $this->expectException('\InvalidArgumentException');
         $this->expectExceptionMessage('must be an instance of');
-        $this->getClient($soapClient)->merge(array(new \stdClass), 'Account');
+        $this->getClient($soapClient)->merge([new \stdClass], 'Account');
     }
 
-    public function testMerge()
+    public function testMerge(): void
     {
-        $soapClient= $this->getSoapClient(array('merge'));
+        $soapClient= $this->getSoapClient(['merge']);
 
         $mergeRequest = new Request\MergeRequest();
         $masterRecord = new \stdClass();
         $masterRecord->Id = '001M0000007UvSjIAK';
         $masterRecord->Name = 'This will be the new name';
         $mergeRequest->masterRecord = $masterRecord;
-        $mergeRequest->recordToMergeIds = array('001M0000008uw8JIAQ');
+        $mergeRequest->recordToMergeIds = ['001M0000008uw8JIAQ'];
 
-        $mergeResult = $this->createObjectMock(new Result\MergeResult(), array(
+        $mergeResult = $this->createObjectMock(new Result\MergeResult(), [
             'id' => '001M0000007UvSjIAK',
-            'mergedRecordIds' => array('001M0000008uw8JIAQ'),
+            'mergedRecordIds' => ['001M0000008uw8JIAQ'],
             'success' => true
-        ));
+        ]);
 
         $result = new \stdClass();
-        $result->result = array($mergeResult);
+        $result->result = [$mergeResult];
 
         $soapClient
             ->expects($this->any())
             ->method('merge')
             ->will($this->returnValue($result));
 
-        $this->getClient($soapClient)->merge(array($mergeRequest), 'Account');
+        $this->getClient($soapClient)->merge([$mergeRequest], 'Account');
     }
 
-    public function testWithEventDispatcher()
+    public function testWithEventDispatcher(): void
     {
         $this->markTestSkipped('Some code commented out in the client?');
 
         $response = new \stdClass();
 
-        $error = $this->createObjectMock(new Result\Error(), array(
-            'fields' => array('Id'),
+        $error = $this->createObjectMock(new Result\Error(), [
+            'fields' => ['Id'],
             'message' => 'Account ID: id value of incorrect type: 001M0000008tWTFIA3',
             'statusCode' => 'MALFORMED_ID'
-        ));
+        ]);
 
-        $saveResult = $this->createObjectMock(new Result\SaveResult(), array(
-            'errors' => array($error),
+        $saveResult = $this->createObjectMock(new Result\SaveResult(), [
+            'errors' => [$error],
             'success' => false
-        ));
+        ]);
 
-        $response->result = array($saveResult);
+        $response->result = [$saveResult];
 
-        $soapClient = $this->getSoapClient(array('create'));
+        $soapClient = $this->getSoapClient(['create']);
         $soapClient
             ->expects($this->once())
             ->method('create')
@@ -169,16 +169,16 @@ No such column 'aId' on entity 'Account'. If you are attempting to use a custom 
         $client = $this->getClient($soapClient);
 
         $dispatcher = $this
-            ->getMockBuilder('\Symfony\Component\EventDispatcher\EventDispatcher')
+            ->getMockBuilder(\Symfony\Component\EventDispatcher\EventDispatcher::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $c = new \stdClass();
         $c->AccountId = '123';
 
-        $params = array(
-            'sObjects'  => array(new \SoapVar($c, SOAP_ENC_OBJECT, 'Contact', Client::SOAP_NAMESPACE))
-        );
+        [
+            'sObjects'  => [new \SoapVar($c, SOAP_ENC_OBJECT, 'Contact', Client::SOAP_NAMESPACE)]
+        ];
 
 //        $dispatcher
 //            ->expects($this->at(0))
@@ -194,28 +194,28 @@ No such column 'aId' on entity 'Account'. If you are attempting to use a custom 
 //            ->method('dispatch')
 //            ->with('php_force.soap_client.error');
 
-        $this->expectException('\PhpArsenal\SoapClient\Exception\SaveException');
+        $this->expectException(\PhpArsenal\SoapClient\Exception\SaveException::class);
 
         $client->setEventDispatcher($dispatcher);
-        $client->create(array($c), 'Contact');
+        $client->create([$c], 'Contact');
     }
 
-    protected function getClient(\SoapClient $soapClient)
+    protected function getClient(\SoapClient $soapClient): \PhpArsenal\SoapClient\Client
     {
         return new Client($soapClient, 'username', 'password', 'token');
     }
 
-    protected function getSoapClient($methods)
+    protected function getSoapClient($methods): \PHPUnit\Framework\MockObject\MockObject
     {
-        $soapClient = $this->getMockBuilder('PhpArsenal\SoapClient\Soap\SoapClient')
-            ->setMethods(array_merge($methods, array('login')))
-            ->setConstructorArgs(array(__DIR__ . '/Fixtures/sandbox.enterprise.wsdl.xml'))
+        $soapClient = $this->getMockBuilder(\PhpArsenal\SoapClient\Soap\SoapClient::class)
+            ->setMethods(array_merge($methods, ['login']))
+            ->setConstructorArgs([__DIR__ . '/Fixtures/sandbox.enterprise.wsdl.xml'])
             ->getMock();
 
-        $result = $this->getResultMock(new LoginResult(), array(
+        $result = $this->getResultMock(new LoginResult(), [
             'sessionId' => '123',
             'serverUrl' => 'http://dinges'
-        ));
+        ]);
 
         $soapClient
             ->expects($this->any())
@@ -232,7 +232,7 @@ No such column 'aId' on entity 'Account'. If you are attempting to use a custom 
      * @param string $property Property name
      * @param mixed  $value    Value
      */
-    protected function setProperty($object, $property, $value)
+    protected function setProperty($object, $property, $value): self
     {
         $reflClass = new ReflectionClass($object);
         $reflProperty = $reflClass->getProperty($property);
@@ -242,7 +242,7 @@ No such column 'aId' on entity 'Account'. If you are attempting to use a custom 
         return $this;
     }
 
-    protected function createObjectMock($object, array $values = array())
+    protected function createObjectMock($object, array $values = [])
     {
         foreach ($values as $key => $value) {
             $this->setProperty($object, $key, $value);
@@ -251,7 +251,7 @@ No such column 'aId' on entity 'Account'. If you are attempting to use a custom 
         return $object;
     }
 
-    protected function getResultMock($object, array $values = array())
+    protected function getResultMock($object, array $values = []): \stdClass
     {
         $mock = $this->createObjectMock($object, $values);
 

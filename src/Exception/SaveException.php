@@ -6,9 +6,9 @@ namespace PhpArsenal\SoapClient\Exception;
  */
 class SaveException extends \Exception implements \IteratorAggregate, \Countable
 {
-    protected $results = array();
+    protected $results = [];
 
-    public function add($result)
+    public function add($result): void
     {
         $this->results[] = $result;
 

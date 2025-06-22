@@ -16,17 +16,13 @@ class RecordIterator implements \SeekableIterator, \Countable
 {
     /**
      * Salesforce client
-     *
-     * @var Client
      */
-    protected $client;
+    protected \PhpArsenal\SoapClient\Client $client;
 
     /**
      * Query result
-     *
-     * @var QueryResult
      */
-    private $queryResult;
+    private \PhpArsenal\SoapClient\Result\QueryResult $queryResult;
 
     /**
      * Iterator pointer
@@ -76,7 +72,7 @@ class RecordIterator implements \SeekableIterator, \Countable
         if ($this->queryResult->getRecord($pointer)) {
             $this->current = $this->queryResult->getRecord($pointer);
 
-            foreach ($this->current as $key => &$value) {
+            foreach ($this->current as &$value) {
                 if ($value instanceof QueryResult) {
                     $value = new RecordIterator($this->client, $value);
                 }
@@ -92,6 +88,7 @@ class RecordIterator implements \SeekableIterator, \Countable
 
             return $this->getObjectAt($this->pointer);
         }
+        return null;
     }
 
     /**
@@ -107,7 +104,7 @@ class RecordIterator implements \SeekableIterator, \Countable
     /**
      * {@inheritdoc}
      */
-    public function next()
+    public function next(): void
     {
         $this->pointer++;
     }
@@ -115,7 +112,7 @@ class RecordIterator implements \SeekableIterator, \Countable
     /**
      * {@inheritdoc}
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->pointer = 0;
     }
@@ -144,10 +141,8 @@ class RecordIterator implements \SeekableIterator, \Countable
      * Set query result, as it is returned from Salesforce
      *
      * @param QueryResult $result
-     *
-     * @return RecordIterator
      */
-    public function setQueryResult(QueryResult $result)
+    public function setQueryResult(QueryResult $result): self
     {
         $this->queryResult = $result;
 
@@ -191,14 +186,12 @@ class RecordIterator implements \SeekableIterator, \Countable
      * so in the select query you issue to the Salesforce API.
      *
      * @param string $by
-     *
-     * @return \ArrayIterator
      */
-    public function sort($by)
+    public function sort($by): \ArrayIterator
     {
         $by = ucfirst($by);
         $array = $this->queryResult->getRecords();
-        usort($array, function($a, $b) use ($by) {
+        usort($array, function($a, $b) use ($by): int {
             // These two ifs take care of moving empty values to the end of the
             // array instead of the beginning
             if (!isset($a->$by) || !$a->$by) {

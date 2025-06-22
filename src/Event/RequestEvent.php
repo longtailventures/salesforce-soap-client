@@ -6,10 +6,10 @@ use Symfony\Contracts\EventDispatcher\Event;
 class RequestEvent extends Event
 {
     protected $method;
-    protected $params = array();
+    protected $params = [];
     protected $response;
 
-    public function __construct($method, array $params = array())
+    public function __construct($method, array $params = [])
     {
         $this->setMethod($method);
         $this->setParams($params);
@@ -20,7 +20,7 @@ class RequestEvent extends Event
         return $this->method;
     }
 
-    public function setMethod($method)
+    public function setMethod($method): void
     {
         $this->method = $method;
     }
@@ -30,7 +30,7 @@ class RequestEvent extends Event
         return $this->params;
     }
 
-    public function setParams(array $params)
+    public function setParams(array $params): void
     {
         $this->params = $params;
     }
@@ -40,7 +40,7 @@ class RequestEvent extends Event
         return $this->response;
     }
 
-    public function setResponse($response)
+    public function setResponse($response): void
     {
         $this->response = $response;
     }

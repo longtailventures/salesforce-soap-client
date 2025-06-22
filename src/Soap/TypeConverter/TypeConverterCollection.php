@@ -9,14 +9,14 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class TypeConverterCollection
 {
-    protected $converters = array();
+    protected $converters = [];
 
     /**
      * Construct type converter collection
      *
      * @param array $converters (optional) Array of type converters
      */
-    public function __construct(array $converters = array())
+    public function __construct(array $converters = [])
     {
         foreach ($converters as $converter) {
             $this->add($converter);
@@ -43,13 +43,11 @@ class TypeConverterCollection
     }
 
     /**
-     * Set (overwrite) a type converter in the collection 
+     * Set (overwrite) a type converter in the collection
      *
      * @param TypeConverterInterface $converter Type converter
-     *
-     * @return TypeConverterCollection
      */
-    public function set(TypeConverterInterface $converter)
+    public function set(TypeConverterInterface $converter): self
     {
         $this->converters[$converter->getTypeNamespace() . ':'
             . $converter->getTypeName()] = $converter;
@@ -60,32 +58,24 @@ class TypeConverterCollection
     /**
      * Returns true if the collection contains a type converter for a certain
      * namespace and name
-     * 
+     *
      * @param string $namespace Converter namespace
      * @param string $name      Converter name
-     *
-     * @return boolean
      */
-    public function has($namespace, $name)
+    public function has(string $namespace, string $name): bool
     {
-        if (isset($this->converters[$namespace . ':' . $name])) {
-            return true;
-        }
-
-        return false;
+        return isset($this->converters[$namespace . ':' . $name]);
     }
 
     /**
      * Get this collection as a typemap that can be used in PHP's \SoapClient
-     * 
-     * @return array
      */
-    public function getTypemap()
+    public function getTypemap(): array
     {
-        $typemap = array();
+        $typemap = [];
 
         foreach ($this->converters as $converter) {
-            $typemap[] = array(
+            $typemap[] = [
                 'type_name' => $converter->getTypeName(),
                 'type_ns'   => $converter->getTypeNamespace(),
                 'from_xml'  => function($input) use ($converter) {
@@ -94,7 +84,7 @@ class TypeConverterCollection
                 'to_xml'    => function($input) use ($converter) {
                     return $converter->convertPhpToXml($input);
                 },
-            );
+            ];
         }
 
         return $typemap;
