@@ -14,35 +14,35 @@ class SoapClientFactory
      *
      * @var array
      */
-    protected $classmap = [
-        'ChildRelationship'     => \PhpArsenal\SoapClient\Result\ChildRelationship::class,
-        'DeleteResult'          => \PhpArsenal\SoapClient\Result\DeleteResult::class,
-        'DeletedRecord'         => \PhpArsenal\SoapClient\Result\DeletedRecord::class,
-        'DescribeGlobalResult'  => \PhpArsenal\SoapClient\Result\DescribeGlobalResult::class,
-        'DescribeGlobalSObjectResult' => \PhpArsenal\SoapClient\Result\DescribeGlobalSObjectResult::class,
-        'DescribeSObjectResult' => \PhpArsenal\SoapClient\Result\DescribeSObjectResult::class,
-        'DescribeTab'           => \PhpArsenal\SoapClient\Result\DescribeTab::class,
-        'EmptyRecycleBinResult' => \PhpArsenal\SoapClient\Result\EmptyRecycleBinResult::class,
-        'Error'                 => \PhpArsenal\SoapClient\Result\Error::class,
-        'Field'                 => \PhpArsenal\SoapClient\Result\DescribeSObjectResult\Field::class,
-        'GetDeletedResult'      => \PhpArsenal\SoapClient\Result\GetDeletedResult::class,
-        'GetServerTimestampResult' => \PhpArsenal\SoapClient\Result\GetServerTimestampResult::class,
-        'GetUpdatedResult'      => \PhpArsenal\SoapClient\Result\GetUpdatedResult::class,
-        'GetUserInfoResult'     => \PhpArsenal\SoapClient\Result\GetUserInfoResult::class,
-        'LeadConvert'           => \PhpArsenal\SoapClient\Request\LeadConvert::class,
-        'LeadConvertResult'     => \PhpArsenal\SoapClient\Result\LeadConvertResult::class,
-        'LoginResult'           => \PhpArsenal\SoapClient\Result\LoginResult::class,
-        'MergeResult'           => \PhpArsenal\SoapClient\Result\MergeResult::class,
-        'QueryResult'           => \PhpArsenal\SoapClient\Result\QueryResult::class,
-        'SaveResult'            => \PhpArsenal\SoapClient\Result\SaveResult::class,
-        'SearchResult'          => \PhpArsenal\SoapClient\Result\SearchResult::class,
-        'SendEmailError'        => \PhpArsenal\SoapClient\Result\SendEmailError::class,
-        'SendEmailResult'       => \PhpArsenal\SoapClient\Result\SendEmailResult::class,
-        'SingleEmailMessage'    => \PhpArsenal\SoapClient\Request\SingleEmailMessage::class,
-        'sObject'               => \PhpArsenal\SoapClient\Result\SObject::class,
-        'UndeleteResult'        => \PhpArsenal\SoapClient\Result\UndeleteResult::class,
-        'UpsertResult'          => \PhpArsenal\SoapClient\Result\UpsertResult::class,
-    ];
+    protected $classmap = array(
+        'ChildRelationship'     => 'PhpArsenal\SoapClient\Result\ChildRelationship',
+        'DeleteResult'          => 'PhpArsenal\SoapClient\Result\DeleteResult',
+        'DeletedRecord'         => 'PhpArsenal\SoapClient\Result\DeletedRecord',
+        'DescribeGlobalResult'  => 'PhpArsenal\SoapClient\Result\DescribeGlobalResult',
+        'DescribeGlobalSObjectResult' => 'PhpArsenal\SoapClient\Result\DescribeGlobalSObjectResult',
+        'DescribeSObjectResult' => 'PhpArsenal\SoapClient\Result\DescribeSObjectResult',
+        'DescribeTab'           => 'PhpArsenal\SoapClient\Result\DescribeTab',
+        'EmptyRecycleBinResult' => 'PhpArsenal\SoapClient\Result\EmptyRecycleBinResult',
+        'Error'                 => 'PhpArsenal\SoapClient\Result\Error',
+        'Field'                 => 'PhpArsenal\SoapClient\Result\DescribeSObjectResult\Field',
+        'GetDeletedResult'      => 'PhpArsenal\SoapClient\Result\GetDeletedResult',
+        'GetServerTimestampResult' => 'PhpArsenal\SoapClient\Result\GetServerTimestampResult',
+        'GetUpdatedResult'      => 'PhpArsenal\SoapClient\Result\GetUpdatedResult',
+        'GetUserInfoResult'     => 'PhpArsenal\SoapClient\Result\GetUserInfoResult',
+        'LeadConvert'           => 'PhpArsenal\SoapClient\Request\LeadConvert',
+        'LeadConvertResult'     => 'PhpArsenal\SoapClient\Result\LeadConvertResult',
+        'LoginResult'           => 'PhpArsenal\SoapClient\Result\LoginResult',
+        'MergeResult'           => 'PhpArsenal\SoapClient\Result\MergeResult',
+        'QueryResult'           => 'PhpArsenal\SoapClient\Result\QueryResult',
+        'SaveResult'            => 'PhpArsenal\SoapClient\Result\SaveResult',
+        'SearchResult'          => 'PhpArsenal\SoapClient\Result\SearchResult',
+        'SendEmailError'        => 'PhpArsenal\SoapClient\Result\SendEmailError',
+        'SendEmailResult'       => 'PhpArsenal\SoapClient\Result\SendEmailResult',
+        'SingleEmailMessage'    => 'PhpArsenal\SoapClient\Request\SingleEmailMessage',
+        'sObject'               => 'PhpArsenal\SoapClient\Result\SObject',
+        'UndeleteResult'        => 'PhpArsenal\SoapClient\Result\UndeleteResult',
+        'UpsertResult'          => 'PhpArsenal\SoapClient\Result\UpsertResult',
+    );
 
     /**
      * Type converters collection
@@ -57,15 +57,15 @@ class SoapClientFactory
      * @param string $environment
      * @return SoapClient
      */
-    public function factory($wsdl, $environment, array $soapOptions = []): \PhpArsenal\SoapClient\Soap\SoapClient
+    public function factory($wsdl, array $soapOptions = array(), $environment)
     {
-        $defaults = [
+        $defaults = array(
             'trace'      => 1,
             'features'   => \SOAP_SINGLE_ELEMENT_ARRAYS,
             'classmap'   => $this->classmap,
             'typemap'    => $this->getTypeConverters()->getTypemap(),
             'cache_wsdl' => $environment == 'dev' ? \WSDL_CACHE_NONE : \WSDL_CACHE_MEMORY
-        ];
+        );
 
         $options = array_merge($defaults, $soapOptions);
 
@@ -78,7 +78,7 @@ class SoapClientFactory
      * @param string $soap SOAP class
      * @param string $php  PHP class
      */
-    public function setClassmapping($soap, $php): void
+    public function setClassmapping($soap, $php)
     {
         $this->classmap[$soap] = $php;
     }
@@ -92,10 +92,10 @@ class SoapClientFactory
     {
         if (null === $this->typeConverters) {
             $this->typeConverters = new TypeConverter\TypeConverterCollection(
-                [
+                array(
                     new TypeConverter\DateTimeTypeConverter(),
                     new TypeConverter\DateTypeConverter()
-                ]
+                )
             );
         }
 
@@ -106,8 +106,10 @@ class SoapClientFactory
      * Set type converter collection
      *
      * @param TypeConverter\TypeConverterCollection $typeConverters Type converter collection
+     *
+     * @return SoapClientFactory
      */
-    public function setTypeConverters(TypeConverter\TypeConverterCollection $typeConverters): self
+    public function setTypeConverters(TypeConverter\TypeConverterCollection $typeConverters)
     {
         $this->typeConverters = $typeConverters;
 

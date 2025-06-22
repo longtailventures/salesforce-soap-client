@@ -57,7 +57,7 @@ class DescribeSObjectResult
      */
     public function getChildRelationship($name)
     {
-        return $this->getChildRelationships()->filter(function($input) use ($name): bool {
+        return $this->getChildRelationships()->filter(function($input) use ($name) {
             return $name === $input->getRelationshipName();
         })->first();
     }
@@ -130,7 +130,7 @@ class DescribeSObjectResult
      */
     public function getField($field)
     {
-        return $this->getFields()->filter(function($input) use ($field): bool {
+        return $this->getFields()->filter(function($input) use ($field) {
             return $field === $input->getName();
         })->first();
     }
@@ -246,7 +246,7 @@ class DescribeSObjectResult
      */
     public function getRelationshipFields()
     {
-        return $this->getFields()->filter(function($field): bool {
+        return $this->getFields()->filter(function($field) {
             return null !== $field->getRelationshipName();
         });
     }
@@ -259,7 +259,7 @@ class DescribeSObjectResult
      */
     public function getRelationshipField($name)
     {
-        return $this->getRelationshipFields()->filter(function($field) use ($name): bool {
+        return $this->getRelationshipFields()->filter(function($field) use ($name) {
             return $name === $field->getName();
         })->first();
     }

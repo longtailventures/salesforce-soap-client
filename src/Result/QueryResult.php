@@ -9,7 +9,7 @@ class QueryResult
 {
     protected $done;
     protected $queryLocator;
-    protected $records = [];
+    protected $records = array();
     protected $size;
 
     /**
@@ -46,6 +46,8 @@ class QueryResult
 
     public function getRecord($index)
     {
-        return $this->records[$index] ?? null;
+        if (isset($this->records[$index])) {
+            return $this->records[$index];
+        }
     }
 }

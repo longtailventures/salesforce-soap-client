@@ -26,7 +26,7 @@ class SoapClient extends \SoapClient
 
             $soapTypes = $this->__getTypes();
             foreach ($soapTypes as $soapType) {
-                $properties = [];
+                $properties = array();
                 $lines = explode("\n", $soapType);
                 if (!preg_match('/struct (.*) {/', $lines[0], $matches)) {
                     continue;
@@ -70,7 +70,9 @@ class SoapClient extends \SoapClient
     public function getSoapElements($complexType)
     {
         $types = $this->getSoapTypes();
-        return $types[$complexType] ?? null;
+        if (isset($types[$complexType])) {
+            return $types[$complexType];
+        }
     }
 
     /**
@@ -87,6 +89,5 @@ class SoapClient extends \SoapClient
         if ($elements && isset($elements[$element])) {
             return $elements[$element];
         }
-        return null;
     }
 }

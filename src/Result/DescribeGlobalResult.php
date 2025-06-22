@@ -7,5 +7,5 @@ class DescribeGlobalResult
     public $encoding;
     public $maxBatchSize;
     /** @var DescribeGlobalSObjectResult[] */
-    public $sobjects = [];
+    public $sobjects = array();
 }

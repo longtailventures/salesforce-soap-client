@@ -26,7 +26,7 @@ class SendEmailResult
         return $this->param;
     }
 
-    public function setParam($param): void
+    public function setParam($param)
     {
         $this->param = $param;
     }

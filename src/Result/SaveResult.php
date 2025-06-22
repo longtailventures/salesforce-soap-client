@@ -71,7 +71,7 @@ class SaveResult
     /**
      * @param mixed $param
      */
-    public function setParam($param): void
+    public function setParam($param)
     {
         $this->param = $param;
     }

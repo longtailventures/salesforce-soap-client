@@ -4,7 +4,7 @@ namespace PhpArsenal\SoapClient\Result;
 
 class GetUpdatedResult
 {
-    protected $ids = [];
+    protected $ids = array();
 
     protected $latestDateCovered;
 

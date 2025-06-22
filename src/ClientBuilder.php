@@ -12,15 +12,6 @@ use Psr\Log\LoggerInterface;
  */
 class ClientBuilder
 {
-    public $wsdl;
-    public $username;
-    public $password;
-    public $token;
-    /**
-     * @var mixed[]
-     */
-    public $soapOptions;
-    public $environment;
     /**
      * @var LoggerInterface $log
      */
@@ -36,7 +27,7 @@ class ClientBuilder
      * @param array  $soapOptions Further options to be passed to the SoapClient
      * @param string $environment SoapClient environment. Used to disable WSDL cache for 'dev' environment
      */
-    public function __construct($wsdl, $username, $password, $token, array $soapOptions = [], $environment = 'prod')
+    public function __construct($wsdl, $username, $password, $token, array $soapOptions = array(), $environment = 'prod')
     {
         $this->wsdl = $wsdl;
         $this->username = $username;
@@ -50,8 +41,10 @@ class ClientBuilder
      * Enable logging
      *
      * @param LoggerInterface $log Logger
+     *
+     * @return ClientBuilder
      */
-    public function withLog(LoggerInterface $log): self
+    public function withLog(LoggerInterface $log)
     {
         $this->log = $log;
 
@@ -60,8 +53,10 @@ class ClientBuilder
 
     /**
      * Build the Salesforce SOAP client
+     *
+     * @return Client
      */
-    public function build(): \PhpArsenal\SoapClient\Client
+    public function build()
     {
         $soapClientFactory = new SoapClientFactory();
         $soapClient = $soapClientFactory->factory($this->wsdl, $this->soapOptions, $this->environment);

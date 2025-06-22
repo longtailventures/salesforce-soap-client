@@ -5,7 +5,7 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class ResponseEvent extends Event
 {
-    protected \PhpArsenal\SoapClient\Event\RequestEvent $requestEvent;
+    protected $requestEvent;
     protected $response;
 
     /**
