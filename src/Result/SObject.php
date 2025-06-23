@@ -6,6 +6,8 @@ namespace PhpArsenal\SoapClient\Result;
  * Standard object
  *
  */
+#[AllowDynamicProperties]
+#[ReturnTypeWillChange]
 class SObject
 {
     /**

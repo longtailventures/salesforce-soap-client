@@ -2,6 +2,8 @@
 
 namespace PhpArsenal\SoapClient\Result;
 
+#[AllowDynamicProperties]
+#[ReturnTypeWillChange]
 class DescribeTab
 {
     protected $custom;

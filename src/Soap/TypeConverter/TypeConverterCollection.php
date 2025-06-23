@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * A collection of type converters
  */
+#[AllowDynamicProperties]
+#[ReturnTypeWillChange]
 class TypeConverterCollection
 {
     protected $converters = array();

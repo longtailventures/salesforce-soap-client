@@ -7,6 +7,8 @@ use PhpArsenal\SoapClient\Soap\TypeConverter;
  * Factory to create a \SoapClient properly configured for the Salesforce SOAP
  * client
  */
+#[AllowDynamicProperties]
+#[ReturnTypeWillChange]
 class SoapClientFactory
 {
     /**

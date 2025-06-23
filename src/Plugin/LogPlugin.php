@@ -11,6 +11,8 @@ use Psr\Log\LoggerInterface;
  * A plugin that logs messages
  *
  *  */
+#[AllowDynamicProperties]
+#[ReturnTypeWillChange]
 class LogPlugin implements EventSubscriberInterface
 {
     /**

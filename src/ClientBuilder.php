@@ -10,6 +10,7 @@ use Psr\Log\LoggerInterface;
  *
  * @author David de Boer <david@ddeboer.nl>
  */
+#[AllowDynamicProperties]
 class ClientBuilder
 {
     /**

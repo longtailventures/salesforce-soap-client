@@ -9,6 +9,8 @@ use Symfony\Contracts\EventDispatcher\Event;
  * Can be extended by classes that dispatch events using the event dispatcher
  *
  */
+#[AllowDynamicProperties]
+#[ReturnTypeWillChange]
 abstract class AbstractHasDispatcher
 {
     /**

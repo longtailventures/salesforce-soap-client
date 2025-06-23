@@ -5,6 +5,8 @@ namespace PhpArsenal\SoapClient\Result;
 /**
  * Send email result
  */
+#[AllowDynamicProperties]
+#[ReturnTypeWillChange]
 class SendEmailResult 
 {
     protected $errors;

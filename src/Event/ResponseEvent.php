@@ -3,6 +3,8 @@ namespace PhpArsenal\SoapClient\Event;
 
 use Symfony\Contracts\EventDispatcher\Event;
 
+#[AllowDynamicProperties]
+#[ReturnTypeWillChange]
 class ResponseEvent extends Event
 {
     protected $requestEvent;

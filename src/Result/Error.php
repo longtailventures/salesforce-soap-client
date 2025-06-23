@@ -5,6 +5,8 @@ namespace PhpArsenal\SoapClient\Result;
 /**
  * An error
  */
+#[AllowDynamicProperties]
+#[ReturnTypeWillChange]
 class Error
 {
     protected $fields;

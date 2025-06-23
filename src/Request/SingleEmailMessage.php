@@ -1,6 +1,8 @@
 <?php
 namespace PhpArsenal\SoapClient\Request;
 
+#[AllowDynamicProperties]
+#[ReturnTypeWillChange]
 class SingleEmailMessage extends BaseEmail
 {
     public $bccAddresses;

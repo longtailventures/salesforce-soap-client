@@ -5,6 +5,8 @@ namespace PhpArsenal\SoapClient\Result;
 use Doctrine\Common\Collections\ArrayCollection;
 use PhpArsenal\SoapClient\Result\DescribeSObjectResult\Field;
 
+#[AllowDynamicProperties]
+#[ReturnTypeWillChange]
 class DescribeSObjectResult
 {
     protected $activateable;

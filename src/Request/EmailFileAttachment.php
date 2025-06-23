@@ -2,6 +2,8 @@
 
 namespace PhpArsenal\SoapClient\Request;
 
+#[AllowDynamicProperties]
+#[ReturnTypeWillChange]
 class EmailFileAttachment
 {
     public $body;

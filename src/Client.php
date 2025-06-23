@@ -10,6 +10,8 @@ use PhpArsenal\SoapClient\Exception;
  * A client for the Salesforce SOAP API
  * @author David de Boer <david@ddeboer.nl>
  */
+#[AllowDynamicProperties]
+#[ReturnTypeWillChange]
 class Client extends AbstractHasDispatcher implements ClientInterface
 {
     /*
