@@ -59,6 +59,7 @@ class RecordIterator implements \SeekableIterator, \Countable
      * {@inheritdoc}
      * @return object
      */
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return $this->current;
@@ -72,6 +73,7 @@ class RecordIterator implements \SeekableIterator, \Countable
      *
      * @return object
      */
+    #[\ReturnTypeWillChange]
     protected function getObjectAt($pointer)
     {
         if ($this->queryResult->getRecord($pointer)) {
@@ -100,6 +102,7 @@ class RecordIterator implements \SeekableIterator, \Countable
      *
      * @return int|null
      */
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return $this->pointer;
@@ -108,6 +111,7 @@ class RecordIterator implements \SeekableIterator, \Countable
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function next()
     {
         $this->pointer++;
@@ -116,6 +120,7 @@ class RecordIterator implements \SeekableIterator, \Countable
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function rewind()
     {
         $this->pointer = 0;
@@ -126,6 +131,7 @@ class RecordIterator implements \SeekableIterator, \Countable
      *
      * @return boolean
      */
+    #[\ReturnTypeWillChange]
     public function valid()
     {
         return null != $this->getObjectAt($this->pointer);
@@ -136,6 +142,7 @@ class RecordIterator implements \SeekableIterator, \Countable
      *
      * @return object
      */
+    #[\ReturnTypeWillChange]
     public function first()
     {
         return $this->getObjectAt(0);
@@ -148,6 +155,7 @@ class RecordIterator implements \SeekableIterator, \Countable
      *
      * @return RecordIterator
      */
+    #[\ReturnTypeWillChange]
     public function setQueryResult(QueryResult $result)
     {
         $this->queryResult = $result;
@@ -159,6 +167,7 @@ class RecordIterator implements \SeekableIterator, \Countable
      * Query Salesforce for more records and rewind iterator
      *
      */
+    #[\ReturnTypeWillChange]
     protected function queryMore()
     {
         $result = $this->client->queryMore($this->queryResult->getQueryLocator());
@@ -171,6 +180,7 @@ class RecordIterator implements \SeekableIterator, \Countable
      *
      * @return int
      */
+    #[\ReturnTypeWillChange]
     public function count()
     {
         return $this->queryResult->getSize();
@@ -179,6 +189,7 @@ class RecordIterator implements \SeekableIterator, \Countable
     /**
      * @param int $position
      */
+    #[\ReturnTypeWillChange]
     public function seek($position)
     {
         return $this->getObjectAt($position);
@@ -195,6 +206,7 @@ class RecordIterator implements \SeekableIterator, \Countable
      *
      * @return \ArrayIterator
      */
+    #[\ReturnTypeWillChange]
     public function sort($by)
     {
         $by = ucfirst($by);
@@ -221,6 +233,7 @@ class RecordIterator implements \SeekableIterator, \Countable
      *
      * @return QueryResult
      */
+    #[\ReturnTypeWillChange]
     public function getQueryResult()
     {
         return $this->queryResult;
