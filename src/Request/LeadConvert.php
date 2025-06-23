@@ -1,6 +1,7 @@
 <?php
 namespace PhpArsenal\SoapClient\Request;
 
+#[\AllowDynamicProperties]
 class LeadConvert
 {
     public $accountId;

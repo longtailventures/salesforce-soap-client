@@ -2,6 +2,7 @@
 
 namespace PhpArsenal\SoapClient\Result;
 
+#[\AllowDynamicProperties]
 class DescribeGlobalResult
 {
     public $encoding;

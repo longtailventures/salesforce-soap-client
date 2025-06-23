@@ -3,6 +3,7 @@ namespace PhpArsenal\SoapClient\Event;
 
 use Symfony\Contracts\EventDispatcher\Event;
 
+#[\AllowDynamicProperties]
 class FaultEvent extends Event
 {
     protected $soapFault;

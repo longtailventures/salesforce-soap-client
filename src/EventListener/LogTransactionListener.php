@@ -5,6 +5,7 @@ namespace PhpArsenal\SoapClient\EventListener;
 use PhpArsenal\SoapClient\Event;
 use Symfony\Component\HttpKernel\Log\LoggerInterface;
 
+#[\AllowDynamicProperties]
 class LogTransactionListener
 {
     /**

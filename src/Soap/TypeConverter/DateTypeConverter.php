@@ -4,6 +4,7 @@ namespace PhpArsenal\SoapClient\Soap\TypeConverter;
 /**
  * Converts between PHP \DateTime and SOAP date objects
  */
+#[\AllowDynamicProperties]
 class DateTypeConverter implements TypeConverterInterface
 {
     /**

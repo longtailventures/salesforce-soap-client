@@ -1,6 +1,7 @@
 <?php
 namespace PhpArsenal\SoapClient\Exception;
 
+#[\AllowDynamicProperties]
 class DeleteException extends \RuntimeException
 {
     protected $successes;

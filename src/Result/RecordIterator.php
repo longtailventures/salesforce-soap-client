@@ -12,6 +12,7 @@ use PhpArsenal\SoapClient\Client;
  *
  * @author David de Boer <david@ddeboer.nl>
  */
+#[\AllowDynamicProperties]
 class RecordIterator implements \SeekableIterator, \Countable
 {
     /**

@@ -10,6 +10,7 @@ use PhpArsenal\SoapClient\Result\SaveResult;
  *
  * @author David de Boer <david@ddeboer.nl>
  */
+#[\AllowDynamicProperties]
 class BulkSaver implements BulkSaverInterface
 {
     /**

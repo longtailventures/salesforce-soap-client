@@ -5,6 +5,7 @@ namespace PhpArsenal\SoapClient\Result;
 /**
  * User info result
  */
+#[\AllowDynamicProperties]
 class GetUserInfoResult
 {
     protected $accessibilityMode;

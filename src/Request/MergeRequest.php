@@ -2,6 +2,7 @@
 
 namespace PhpArsenal\SoapClient\Request;
 
+#[\AllowDynamicProperties]
 class MergeRequest
 {
     public $masterRecord;

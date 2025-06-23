@@ -4,6 +4,7 @@ namespace PhpArsenal\SoapClient\Exception;
 /**
  * Collection of faulty results
  */
+#[\AllowDynamicProperties]
 class SaveException extends \Exception implements \IteratorAggregate, \Countable
 {
     protected $results = array();

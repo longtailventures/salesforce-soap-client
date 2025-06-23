@@ -5,6 +5,7 @@ namespace PhpArsenal\SoapClient\Result;
 /**
  * Query result
  */
+#[\AllowDynamicProperties]
 class QueryResult
 {
     protected $done;

@@ -8,6 +8,7 @@ namespace PhpArsenal\SoapClient\Result;
  * @link http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_update_saveresult.htm
  *
  */
+#[\AllowDynamicProperties]
 class SaveResult
 {
     /**

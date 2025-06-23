@@ -1,6 +1,7 @@
 <?php
 namespace PhpArsenal\SoapClient;
 
+#[\AllowDynamicProperties]
 final class Events
 {
     const REQUEST    = 'arsenal.soap_client.request';

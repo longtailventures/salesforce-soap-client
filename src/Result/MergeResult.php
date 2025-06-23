@@ -6,6 +6,7 @@ namespace PhpArsenal\SoapClient\Result;
  * Merge result
  *
  */
+#[\AllowDynamicProperties]
 class MergeResult
 {
     /**
