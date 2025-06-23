@@ -2,8 +2,6 @@
 
 namespace PhpArsenal\SoapClient\Result;
 
-#[AllowDynamicProperties]
-#[ReturnTypeWillChange]
 class LeadConvertResult
 {
     public $accountId;

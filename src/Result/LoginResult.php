@@ -5,8 +5,6 @@ namespace PhpArsenal\SoapClient\Result;
 /**
  * Login result
  */
-#[AllowDynamicProperties]
-#[ReturnTypeWillChange]
 class LoginResult
 {
     protected $metadataServerUrl;

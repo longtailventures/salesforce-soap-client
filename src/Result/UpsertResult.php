@@ -7,8 +7,6 @@ namespace PhpArsenal\SoapClient\Result;
  *
  * @see http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_upsert_upsertresult.htm
  */
-#[AllowDynamicProperties]
-#[ReturnTypeWillChange]
 class UpsertResult extends SaveResult
 {
     /**

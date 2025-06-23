@@ -1,8 +1,6 @@
 <?php
 namespace PhpArsenal\SoapClient;
 
-#[AllowDynamicProperties]
-#[ReturnTypeWillChange]
 final class Events
 {
     const REQUEST    = 'arsenal.soap_client.request';

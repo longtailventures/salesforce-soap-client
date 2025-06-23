@@ -5,8 +5,6 @@ namespace PhpArsenal\SoapClient\Result;
 /**
  * A deleted record
  */
-#[AllowDynamicProperties]
-#[ReturnTypeWillChange]
 class DeletedRecord
 {
     /**

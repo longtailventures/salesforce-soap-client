@@ -6,8 +6,6 @@ namespace PhpArsenal\SoapClient\Soap;
  * SOAP client used for the Salesforce API client
  *
  */
-#[AllowDynamicProperties]
-#[ReturnTypeWillChange]
 class SoapClient extends \SoapClient
 {
     /**

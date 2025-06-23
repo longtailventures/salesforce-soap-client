@@ -14,3 +14,5 @@ class DescribeTabsResult
 {
     //put your code here
 }
+
+?>

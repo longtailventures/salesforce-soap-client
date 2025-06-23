@@ -2,8 +2,6 @@
 
 namespace PhpArsenal\SoapClient\Result\DescribeSObjectResult;
 
-#[AllowDynamicProperties]
-#[ReturnTypeWillChange]
 class Field
 {
     protected $autoNumber;

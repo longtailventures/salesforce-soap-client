@@ -2,8 +2,6 @@
 
 namespace PhpArsenal\SoapClient\Result;
 
-#[AllowDynamicProperties]
-#[ReturnTypeWillChange]
 class SendEmailError extends Error
 {
     protected $targetObjectId;
